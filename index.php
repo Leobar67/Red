@@ -1,12 +1,11 @@
 <?php
-$host = "localhost";
-$user = "root";
-$password = ""; // O tu contraseña de base de datos si usas MySQL en Render
-$dbname = "gregario-sorpresa";
+require 'config/conexion.php';
 
-$conn = new mysqli($host, $user, $password, $dbname);
+$bd = new BD_PDO();
+$resultado = $bd->Ejecutar_Instruccion("SELECT * FROM Sensores");
 
-if ($conn->connect_error) {
-    die("Conexión fallida: " . $conn->connect_error);
-}
+echo "✅ API funcionando.<br>";
+echo "<pre>";
+print_r($resultado);
+echo "</pre>";
 ?>
