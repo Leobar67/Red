@@ -6,13 +6,9 @@ $consumo = $_POST['consumo'];
 $temperatura = $_POST['temperatura'];
 $fechahora = $_POST['fechahora'];
 
-$sql = "UPDATE Sensores SET Consumo=?, Temperatura=?, Fechahora=? WHERE Id_Datos=?";
-$stmt = $conn->prepare($sql);
-$stmt->bind_param("ddsi", $consumo, $temperatura, $fechahora, $id);
+$bd = new BD_PDO();
+$sql = "UPDATE Sensores SET Consumo='$consumo', Temperatura='$temperatura', Fechahora='$fechahora' WHERE Id_Datos=$id";
+$bd->Ejecutar_Instruccion($sql);
 
-if ($stmt->execute()) {
-    echo "Dato actualizado.";
-} else {
-    echo "Error al editar: " . $conn->error;
-}
+echo "✅ Dato editado.";
 ?>
