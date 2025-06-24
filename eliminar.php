@@ -3,13 +3,9 @@ require 'config/conexion.php';
 
 $id = $_GET['id'];
 
-$sql = "DELETE FROM Sensores WHERE Id_Datos = ?";
-$stmt = $conn->prepare($sql);
-$stmt->bind_param("i", $id);
+$bd = new BD_PDO();
+$sql = "DELETE FROM Sensores WHERE Id_Datos = $id";
+$bd->Ejecutar_Instruccion($sql);
 
-if ($stmt->execute()) {
-    echo "Dato eliminado.";
-} else {
-    echo "Error al eliminar: " . $conn->error;
-}
+echo "✅ Dato eliminado.";
 ?>
