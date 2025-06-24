@@ -1,6 +1,6 @@
 <?php  require_once 'config/conexion.php'; 
 
-date_default_timezone_set("America/Monterrey");
+date_default_timezone_set("America/Matamoros");
 echo date('h:i:s');
 
 if(isset($_GET['sensor_port'])){
