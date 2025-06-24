@@ -6,7 +6,9 @@ header("Content-Type: application/json");
 if(isset($_GET['sensor_port'])){
 $con = new BD_PDO();
 $consumo =  @$_GET['consumo']; $temp = @$_GET['temp']; $hora = date('H:i:s');
-$consuno = abs($consumo);
+if($consumo < 0){
+    $consuno = $consumo * -1;
+}
     
     if(!$consumo || !$temp){
         echo json_encode(["status" => "Los campos estan vacios"]); exit;
