@@ -1,6 +1,6 @@
 <?php  require_once 'config/conexion.php'; 
 date_default_timezone_set("America/Monterrey");
-echo date('H:i:s');
+echo date('h:i:s');
 
 if(isset($_GET['sensor_port'])){
 $con = new BD_PDO();
@@ -16,7 +16,7 @@ if(!$consumo || !$temp){
 }
 
 elseif(isset($_GET['cambios'])){
-    $con = new BD_PDO(); $fecha = date('H:i:s');
+    $con = new BD_PDO(); $fecha = date('h:i:s');
     $result = $con -> Ejecutar_Instruccion("UPDATE Sensores set Hora = '{$fecha}' where Id_Datos = 1");
     echo($result);
 }
