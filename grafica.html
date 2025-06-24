@@ -1,0 +1,65 @@
+<!-- HTML -->
+<canvas id="Grafica"></canvas>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+fetch("index.php?datos")
+  .then(response => response.json())
+  .then(data => {
+       const etiquetasHora = data.map(item => item.Hora);           // etiquetas eje X (hora o fecha)
+        const consumo = data.map(item => parseFloat(item.Consumo));   // valores consumo numérico
+        const temperatura = data.map(item => parseFloat(item.Temperatura)); 
+
+    new Chart(document.getElementById("Grafica"), {
+      type: "bar",
+      data: {
+        labels: etiquetasHora,
+        datasets: [
+          {
+            label: "Consumo",
+            data: consumo,
+            backgroundColor: 'rgba(54, 162, 235, 0.7)',
+            yAxisID: 'y',
+          },
+          {
+            label: "Temperatura",
+            data: temperatura,
+            backgroundColor: 'rgba(255, 99, 132, 0.7)',
+            yAxisID: 'y1',
+          }
+        ]
+      },
+      options: {
+        responsive: true,
+        interaction: {
+          mode: 'index',
+          intersect: false,
+        },
+        stacked: false,
+        scales: {
+          y: {
+            type: 'linear',
+            display: true,
+            position: 'left',
+            title: {
+              display: true,
+              text: 'Consumo',
+            },
+          },
+          y1: {
+            type: 'linear',
+            display: true,
+            position: 'right',
+            grid: {
+              drawOnChartArea: false, // para que no dibuje líneas duplicadas
+            },
+            title: {
+              display: true,
+              text: 'Temperatura',
+            },
+          },
+        }
+      }
+    });
+  });
+
+</script>
