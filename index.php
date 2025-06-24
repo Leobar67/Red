@@ -1,4 +1,5 @@
 <?php  require_once 'config/conexion.php'; 
+
 date_default_timezone_set("America/Monterrey");
 echo date('h:i:s');
 
@@ -31,4 +32,4 @@ elseif(isset($_GET['datos'])){
     }
     var_dump($select);
 } 
-    ?>
+?>
