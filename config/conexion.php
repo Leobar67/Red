@@ -6,7 +6,7 @@ class BD_PDO {
 		$port = 53956;
 		$usr  = "root";
 		$pwd  = "rUiNQxWUAAfGKqMaBKgvqzHEaYtuzSnO";
-		$db   = "railway";
+		$db   = "gregario-sorpresa";
 
 		try {
 			$conexion = new PDO("mysql:host=$host;port=$port;dbname=$db;", $usr, $pwd);
