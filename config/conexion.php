@@ -1,6 +1,6 @@
 <?php
 $host = "localhost";           // Servidor
-$baseDeDatos = "mi_base";      // Base de datos
+$baseDeDatos = "gregario-sorpresa";      // Base de datos
 $usuario = "root";             // Usuario
 $contrasena = "";              // Contraseña
 
