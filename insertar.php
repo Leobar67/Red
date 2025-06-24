@@ -5,13 +5,9 @@ $consumo = $_POST['consumo'];
 $temperatura = $_POST['temperatura'];
 $fechahora = $_POST['fechahora'];
 
-$sql = "INSERT INTO Sensores (Consumo, Temperatura, Fechahora) VALUES (?, ?, ?)";
-$stmt = $conn->prepare($sql);
-$stmt->bind_param("dds", $consumo, $temperatura, $fechahora);
+$bd = new BD_PDO();
+$sql = "INSERT INTO Sensores (Consumo, Temperatura, Fechahora) VALUES ('$consumo', '$temperatura', '$fechahora')";
+$resultado = $bd->Ejecutar_Instruccion($sql);
 
-if ($stmt->execute()) {
-    echo "Dato insertado correctamente.";
-} else {
-    echo "Error al insertar: " . $conn->error;
-}
+echo "✅ Insertado correctamente.";
 ?>
