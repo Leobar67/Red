@@ -1,27 +1,38 @@
 <?php  require_once 'config/conexion.php'; 
 
 date_default_timezone_set("America/Matamoros");
-echo date('h:i:s');
+header("Content-Type: application/json");
 
 if(isset($_GET['sensor_port'])){
 $con = new BD_PDO();
-$consumo =  @$_GET['consumo']; $temp = @$_GET['temp']; $fecha = date('H:i:s');
+$consumo =  @$_GET['consumo']; $temp = @$_GET['temp']; $hora = date('H:i:s');
 
 if(!$consumo || !$temp){
-    echo 'Los campos estan vacios <br>';
+    echo json_encode(["status" => "Los campos estan vacios"]);
+    exit;
 }else{
-    try{ $con->Ejecutar_Instruccion("ALTER TABLE Sensores MODIFY Id_Datos INT AUTO_INCREMENT PRIMARY KEY");    }
-    catch(PDOException $e){}
-        $insertar = $con ->Ejecutar_Instruccion("INSERT into Sensores(Consumo, Temperatura, Fechahora) values ('$consumo', '$temp', '$fecha')"); 
-    } 
+    $insertar = $con ->Ejecutar_Instruccion("INSERT into Sensores(Consumo, Temperatura, Hora) values ('$consumo', '$temp', '$hora')"); 
+    echo json_encode($insertar); 
+    exit;
 }
 
-elseif(isset($_GET['cambios'])){
-    $con = new BD_PDO(); $fecha = date('h:i:s');
-    $result = $con -> Ejecutar_Instruccion("UPDATE Sensores set Hora = '{$fecha}' where Id_Datos = 1");
-    echo($result);
 }
-elseif(isset($_GET['datos'])){
+
+if(isset($_GET['cambios'])){
+    $con = new BD_PDO();
+    $result = $con -> Ejecutar_Instruccion("UPDATE Sensores set Consumo = '2.64' where Id_Datos = 1");
+}
+
+if(isset($_GET['show'])){
+    $con = new BD_PDO();
+    // $con -> Ejecutar_Instruccion("ALTER TABLE Sensores MODIFY Id_Datos INT NOT NULL AUTO_INCREMENT");
+
+    $result = $con->Ejecutar_Instruccion("SHOW CREATE TABLE Sensores");
+    echo json_encode($result);
+    exit;
+}
+
+if(isset($_GET['datos'])){
     $con = new BD_PDO();
     @$id = $_GET['id'];
 
@@ -30,6 +41,9 @@ elseif(isset($_GET['datos'])){
     }else{
         $select = $con -> Ejecutar_Instruccion("SELECT * from Sensores");
     }
-    var_dump($select);
-} 
+
+    echo json_encode($select);
+    exit;
+}
+
 ?>
